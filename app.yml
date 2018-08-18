@@ -6,6 +6,8 @@
         http_template_enable: true
         main_template_enable: true
         http_push_enable: true
+        # Set http_template_server_name var to "empty" due to default template using localhost server_name
+        http_template_server_name: "empty"
         http_push_location: roles/nginx/files/site.conf
     - role: geerlingguy.php
       vars:
