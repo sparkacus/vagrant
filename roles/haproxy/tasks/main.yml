@@ -10,3 +10,13 @@
     name: haproxy
     state: reloaded
   when: inventory_hostname == "lb"
+
+- name: Ensure all backends in HAProxy are enabled
+  haproxy:
+    state: enabled
+    socket: /run/haproxy/admin.sock
+    host: "{{item}}"
+    backend: web
+    fail_on_not_found: yes
+  with_list: "{{groups.apps}}"
+  when: inventory_hostname == "lb"
