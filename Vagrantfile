@@ -14,6 +14,12 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/xenial64"
 
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get -y install language-pack-en
+    sudo apt-get -y install python-minimal
+  SHELL
+
   config.vm.define "lb" do |machine|
   end
 
