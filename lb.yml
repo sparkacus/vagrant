@@ -5,3 +5,6 @@
       haproxy_user: haproxyuser
       haproxy_pass: haproxypass
       tags: haproxy_install
+      
+    - role: haproxy
+      tags: haproxy_configure
