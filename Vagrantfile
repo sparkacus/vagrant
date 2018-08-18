@@ -30,10 +30,10 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "app1" do |machine|
-  end
-
-  config.vm.define "app2" do |machine|
+  N = 2
+  (1..N).each do |machine_id|
+    config.vm.define "app#{machine_id}" do |machine|
+    end
   end
 
   # Disable automatic box update checking. If you disable this, then
