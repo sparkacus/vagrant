@@ -6,3 +6,10 @@
         http_template_enable: true
         http_push_enable: true
         http_push_location: roles/nginx/files/site.conf
+    - role: geerlingguy.php
+      vars:
+        php_date_timezone: "Europe/London"
+        php_webserver_daemon: nginx
+        php_enable_php_fpm: true
+        php_fpm_pool_user: www-data
+        php_fpm_pool_group: www-data
