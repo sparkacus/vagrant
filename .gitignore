@@ -1,0 +1,4 @@
+/.vagrant
+/roles_vendor
+/*.retry
+/*.log
