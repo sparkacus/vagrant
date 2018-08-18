@@ -2,3 +2,7 @@
 - hosts: app*
   roles:
     - role: nginxinc.nginx
+      vars:
+        http_template_enable: true
+        http_push_enable: true
+        http_push_location: roles/nginx/files/site.conf
