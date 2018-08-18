@@ -1,0 +1,4 @@
+# from galaxy
+- src: nginxinc.nginx
+- src: geerlingguy.php
+- src: geerlingguy.composer

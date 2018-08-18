@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
           ansible.limit = "apps"
           ansible.become = true
           ansible.playbook = "app.yml"
-          ansible.galaxy_role_file = "requirements.yml"
+          ansible.galaxy_role_file = "requirements-app.yml"
           ansible.galaxy_roles_path = "roles_vendor"
           ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
         end
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
       ansible.become = true
       ansible.playbook = "lb.yml"
       ansible.tags = "haproxy_install"
-      ansible.galaxy_role_file = "requirements.yml"
+      ansible.galaxy_role_file = "requirements-lb.yml"
       ansible.galaxy_roles_path = "roles_vendor"
       ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
     end
@@ -60,7 +60,8 @@ Vagrant.configure("2") do |config|
       ansible.become = true
       ansible.playbook = "lb.yml"
       ansible.tags = "haproxy_configure"
-      ansible.galaxy_role_file = "requirements.yml"
+      ansible.galaxy_role_file = "requirements-lb.yml"
+      ansible.galaxy_roles_path = "roles_vendor"
     end
   end
 end
