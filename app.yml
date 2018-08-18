@@ -17,3 +17,4 @@
         php_fpm_pool_user: www-data
         php_fpm_pool_group: www-data
     - role: geerlingguy.composer
+    - role: app
