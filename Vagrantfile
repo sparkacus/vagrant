@@ -24,6 +24,9 @@ Vagrant.configure("2") do |config|
     machine.vm.network "forwarded_port", guest: 80, host: 8080
     machine.vm.network "private_network", ip: "192.168.77.200"
     machine.vm.provision "ansible" do |ansible|
+      ansible.groups = {
+        "lb" => ["lb"]
+      }
       ansible.limit = "lb"
       ansible.become = true
       ansible.playbook = "lb.yml"
@@ -33,12 +36,22 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  N = 1
+  N = 2
+  
+  # Store app name in an array - For creating an Ansible group
+  apps_ary = Array.new
+
   (1..N).each do |machine_id|
+    apps_ary << "app#{machine_id}"
+
     config.vm.define "app#{machine_id}" do |machine|
       machine.vm.network "private_network", ip: "192.168.77.20#{machine_id}"
+
       if machine_id == N
         machine.vm.provision "ansible" do |ansible|
+          ansible.groups = {
+            "apps" => apps_ary
+          }
           ansible.limit = "app*"
           ansible.become = true
           ansible.playbook = "app.yml"
