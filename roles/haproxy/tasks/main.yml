@@ -1,0 +1,12 @@
+---
+- name: Create HAProxy config from template
+  template:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+  when: inventory_hostname == "lb"
+
+- name: Reload HAproxy
+  systemd:
+    name: haproxy
+    state: reloaded
+  when: inventory_hostname == "lb"
