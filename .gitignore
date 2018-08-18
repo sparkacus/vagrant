@@ -2,3 +2,6 @@
 /roles_vendor
 /*.retry
 /*.log
+/slim/vendor
+/slim/composer.json
+/slim/composer.lock
