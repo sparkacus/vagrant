@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
           ansible.groups = {
             "apps" => apps_ary
           }
-          ansible.limit = "app*"
+          ansible.limit = "apps"
           ansible.become = true
           ansible.playbook = "app.yml"
           ansible.galaxy_role_file = "requirements.yml"
