@@ -21,26 +21,28 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.define "lb" do |machine|
-    machine.vm.provision "ansible_local" do |ansible|
+    machine.vm.provision "ansible" do |ansible|
       ansible.limit = "lb"
       ansible.become = true
       ansible.playbook = "lb.yml"
       ansible.galaxy_role_file = "requirements.yml"
       ansible.galaxy_roles_path = "roles_vendor"
-      ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+      ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
     end
   end
 
   N = 2
   (1..N).each do |machine_id|
     config.vm.define "app#{machine_id}" do |machine|
-      machine.vm.provision "ansible_local" do |ansible|
-        ansible.limit = "app#{machine_id}"
-        ansible.become = true
-        ansible.playbook = "app.yml"
-        ansible.galaxy_role_file = "requirements.yml"
-        ansible.galaxy_roles_path = "roles_vendor"
-        ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+      if machine_id == N
+        machine.vm.provision "ansible" do |ansible|
+          ansible.limit = "app*"
+          ansible.become = true
+          ansible.playbook = "app.yml"
+          ansible.galaxy_role_file = "requirements.yml"
+          ansible.galaxy_roles_path = "roles_vendor"
+          ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+        end
       end
     end
   end
