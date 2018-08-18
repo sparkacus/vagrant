@@ -46,9 +46,6 @@ Vagrant.configure("2") do |config|
     machine.vm.network "forwarded_port", guest: 80, host: 8080
     machine.vm.network "private_network", ip: "192.168.77.200"
     machine.vm.provision "ansible" do |ansible|
-      ansible.groups = {
-        "lb" => ["lb"]
-      }
       ansible.limit = "lb"
       ansible.become = true
       ansible.playbook = "lb.yml"
