@@ -22,19 +22,14 @@ Vagrant.configure("2") do |config|
 
   N = 2
   
-  # Store app name in an array - For creating an Ansible group
-  apps_ary = Array.new
-
   (1..N).each do |machine_id|
-    apps_ary << "app.#{machine_id}"
-
-    config.vm.define "app#{machine_id}" do |machine|
+    config.vm.define "app.#{machine_id}" do |machine|
       machine.vm.network "private_network", ip: "192.168.77.20#{machine_id}"
 
       if machine_id == N
         machine.vm.provision "ansible" do |ansible|
           ansible.groups = {
-            "apps" => apps_ary
+            "apps" => ["app.[1:#{N}]"],
           }
           ansible.limit = "apps"
           ansible.become = true
