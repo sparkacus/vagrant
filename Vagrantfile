@@ -20,22 +20,6 @@ Vagrant.configure("2") do |config|
     sudo apt-get -y install python-minimal
   SHELL
 
-  config.vm.define "lb" do |machine|
-    machine.vm.network "forwarded_port", guest: 80, host: 8080
-    machine.vm.network "private_network", ip: "192.168.77.200"
-    machine.vm.provision "ansible" do |ansible|
-      ansible.groups = {
-        "lb" => ["lb"]
-      }
-      ansible.limit = "lb"
-      ansible.become = true
-      ansible.playbook = "lb.yml"
-      ansible.galaxy_role_file = "requirements.yml"
-      ansible.galaxy_roles_path = "roles_vendor"
-      ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
-    end
-  end
-
   N = 2
   
   # Store app name in an array - For creating an Ansible group
@@ -60,6 +44,22 @@ Vagrant.configure("2") do |config|
           ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
         end
       end
+    end
+  end
+
+  config.vm.define "lb" do |machine|
+    machine.vm.network "forwarded_port", guest: 80, host: 8080
+    machine.vm.network "private_network", ip: "192.168.77.200"
+    machine.vm.provision "ansible" do |ansible|
+      ansible.groups = {
+        "lb" => ["lb"]
+      }
+      ansible.limit = "lb"
+      ansible.become = true
+      ansible.playbook = "lb.yml"
+      ansible.galaxy_role_file = "requirements.yml"
+      ansible.galaxy_roles_path = "roles_vendor"
+      ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
     end
   end
 
