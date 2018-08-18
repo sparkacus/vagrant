@@ -21,6 +21,13 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.define "lb" do |machine|
+    machine.vm.provision "ansible_local" do |ansible|
+      ansible.become = true
+      ansible.playbook = "lb.yml"
+      ansible.galaxy_role_file = "requirements.yml"
+      ansible.galaxy_roles_path = "roles_vendor"
+      ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+    end
   end
 
   config.vm.define "app1" do |machine|
