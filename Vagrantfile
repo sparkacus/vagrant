@@ -54,6 +54,17 @@ Vagrant.configure("2") do |config|
       ansible.galaxy_roles_path = "roles_vendor"
       ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
     end
+    machine.vm.provision "ansible" do |ansible|
+      # Inventory file is overwritten upon each Ansible provision - Need to add groups again..
+      ansible.groups = {
+        "apps" => ["app.[1:#{N}]"],
+      }
+      ansible.limit = "all"
+      ansible.become = true
+      ansible.playbook = "lb.yml"
+      ansible.tags = "haproxy_configure"
+      ansible.galaxy_role_file = "requirements.yml"
+    end
   end
 
   # Disable automatic box update checking. If you disable this, then
