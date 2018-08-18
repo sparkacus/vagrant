@@ -4,3 +4,4 @@
     - role: entercloudsuite.haproxy
       haproxy_user: haproxyuser
       haproxy_pass: haproxypass
+      tags: haproxy_install
