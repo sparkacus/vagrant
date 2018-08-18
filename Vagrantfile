@@ -17,13 +17,13 @@ Vagrant.configure("2") do |config|
   N = 2
   
   (1..N).each do |machine_id|
-    config.vm.define "app.#{machine_id}" do |machine|
+    config.vm.define "app#{machine_id}" do |machine|
       machine.vm.network "private_network", ip: "192.168.77.20#{machine_id}"
 
       if machine_id == N
         machine.vm.provision "ansible" do |ansible|
           ansible.groups = {
-            "apps" => ["app.[1:#{N}]"],
+            "apps" => ["app[1:#{N}]"],
           }
           ansible.limit = "apps"
           ansible.become = true
@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
     machine.vm.provision "ansible" do |ansible|
       # Inventory file is overwritten upon each Ansible provision - Need to add groups again..
       ansible.groups = {
-        "apps" => ["app.[1:#{N}]"],
+        "apps" => ["app[1:#{N}]"],
       }
       ansible.limit = "all"
       ansible.become = true
