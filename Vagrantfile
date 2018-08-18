@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
   apps_ary = Array.new
 
   (1..N).each do |machine_id|
-    apps_ary << "app#{machine_id}"
+    apps_ary << "app.#{machine_id}"
 
     config.vm.define "app#{machine_id}" do |machine|
       machine.vm.network "private_network", ip: "192.168.77.20#{machine_id}"
