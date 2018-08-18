@@ -1,0 +1,8 @@
+---
+- name: Install Slim PHP Framework
+  composer:
+    command: require
+    arguments: slim/slim "^3.0"
+    working_dir: /vagrant/slim/
+  # Task only needs to run on a single app server - app server share same mount
+  run_once: true
