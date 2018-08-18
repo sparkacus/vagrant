@@ -1,3 +1,4 @@
 # from galaxy
 - src: entercloudsuite.haproxy
 - src: nginxinc.nginx
+- src: geerlingguy.php
