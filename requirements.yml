@@ -1,2 +1,3 @@
 # from galaxy
 - src: entercloudsuite.haproxy
+- src: nginxinc.nginx
