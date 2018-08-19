@@ -1,9 +1,9 @@
 ---
 - hosts: all
+  vars:
+    haproxy_disable_stats: false
   roles:
     - role: entercloudsuite.haproxy
-      haproxy_user: haproxyuser
-      haproxy_pass: haproxypass
       tags: haproxy_install
       
     - role: haproxy
