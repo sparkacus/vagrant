@@ -1,11 +1,21 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require "ipaddr"
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+  # Define Variables
+  ip_lb = "192.168.77.200"
+  # End
+
+  # Logic to support incrementing IP
+  ip_addr = IPAddr.new ip_lb
+  # End
+
   config.vm.box = "ubuntu/xenial64"
 
   config.vm.provision "shell", inline: <<-SHELL
@@ -17,8 +27,9 @@ Vagrant.configure("2") do |config|
   N = 5
   
   (1..N).each do |machine_id|
+    ip_addr = ip_addr.succ
     config.vm.define "app#{machine_id}" do |machine|
-      machine.vm.network "private_network", ip: "192.168.77.20#{machine_id}"
+      machine.vm.network "private_network", ip: ip_addr.to_s
 
       if machine_id == N
         machine.vm.provision "ansible" do |ansible|
@@ -40,7 +51,7 @@ Vagrant.configure("2") do |config|
     machine.vm.network "forwarded_port", guest: 80, host: 8080
     # Add port forward for HAProxy stats page
     machine.vm.network "forwarded_port", guest: 8282, host: 8282
-    machine.vm.network "private_network", ip: "192.168.77.200"
+    machine.vm.network "private_network", ip: ip_lb
     machine.vm.provision "ansible" do |ansible|
       ansible.limit = "lb"
       ansible.become = true
