@@ -1,0 +1,13 @@
+---
+- block:
+  - name: Test URL Endpoint {{item}} / {{groups.apps|length}}
+    become: no
+    uri:
+      url: http://localhost:{{haproxy_web_port}}
+      return_content: yes
+    register: webpage
+
+  - name: Fail if {{haproxy_response_string}} is not in the page content
+    fail:
+    when: haproxy_response_string not in webpage.content
+  delegate_to: 127.0.0.1
