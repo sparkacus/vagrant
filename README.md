@@ -25,7 +25,7 @@ The NGINX VHOST is configured to make use of the default `/vagrant` share. The V
 
 # Test evidence
 
-The last Ansible provisioner task performs a test to ensure the application servers are accessible. Ansible will query HAProxy to ensure each backend server is enabled. The available backend serves (application servers) are defined by the number of hosts defined in the Ansible 'apps' inventory group.
+The last Ansible provisioner task performs a test to ensure the application servers are accessible. Ansible will query HAProxy to ensure each backend server is enabled. The available backend servers (application servers) are defined by the number of hosts defined in the Ansible 'apps' inventory group.
 
 The final test results in `N` No. of requests targeting HAProxy. If the response body does not contain the string defined by the `haproxy_response_string` variable, the task is marked as fail upon which Ansible will exit.
 
