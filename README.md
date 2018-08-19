@@ -7,7 +7,7 @@
 ```vagrant up```
 
 # Summary
-This project is an example for using Vagrant to provision a HAProxy LB VM along with multiple application VMs that run a simple Hello World PHP application based on the Slim framework. The application servers make use of NGINX and PHP-FPM.
+This project is an example for using Vagrant to provision a HAProxy LB VM along with multiple application VMs that run a simple Hello World PHP application based on the Slim framework. The application servers run on Ubuntu 16 and make use of NGINX and PHP-FPM.
 
 Vagrant utilises Ansible for server side configuration. The following external roles are imported automatically as defined in the VagrantFile:
 
