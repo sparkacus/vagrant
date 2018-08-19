@@ -9,7 +9,10 @@ require "ipaddr"
 # you're doing.
 Vagrant.configure("2") do |config|
   # Define Variables
+  N = 1 # Number of application servers
   ip_lb = "192.168.77.200"
+  haproxy_web_port = 8080
+  haproxy_status_port = 8081
   # End
 
   # Logic to support incrementing IP
@@ -23,8 +26,6 @@ Vagrant.configure("2") do |config|
     sudo apt-get -y install language-pack-en
     sudo apt-get -y install python-minimal
   SHELL
-
-  N = 5
   
   (1..N).each do |machine_id|
     ip_addr = ip_addr.succ
@@ -48,9 +49,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "lb" do |machine|
-    machine.vm.network "forwarded_port", guest: 80, host: 8080
+    machine.vm.network "forwarded_port", guest: 80, host: haproxy_web_port
     # Add port forward for HAProxy stats page
-    machine.vm.network "forwarded_port", guest: 8282, host: 8282
+    machine.vm.network "forwarded_port", guest: 8282, host: haproxy_status_port
     machine.vm.network "private_network", ip: ip_lb
     machine.vm.provision "ansible" do |ansible|
       ansible.limit = "lb"
