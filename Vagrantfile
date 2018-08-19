@@ -30,8 +30,8 @@ Vagrant.configure("2") do |config|
   SHELL
   
   (1..N).each do |machine_id|
-    ip_addr = ip_addr.succ
     config.vm.define "app#{machine_id}" do |machine|
+      ip_addr = ip_addr.succ
       machine.vm.network "private_network", ip: ip_addr.to_s
 
       if machine_id == N
