@@ -8,7 +8,6 @@
         http_push_enable: true
         # Set http_template_server_name var to "empty" due to default template using localhost server_name
         http_template_server_name: "empty"
-        http_push_location: roles/app/files/site.conf
     - role: geerlingguy.php
       vars:
         php_date_timezone: "Europe/London"
