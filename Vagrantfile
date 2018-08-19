@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     sudo apt-get -y install python-minimal
   SHELL
 
-  N = 2
+  N = 5
   
   (1..N).each do |machine_id|
     config.vm.define "app#{machine_id}" do |machine|
@@ -38,6 +38,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "lb" do |machine|
     machine.vm.network "forwarded_port", guest: 80, host: 8080
+    # Add port forward for HAProxy stats page
+    machine.vm.network "forwarded_port", guest: 8282, host: 8282
     machine.vm.network "private_network", ip: "192.168.77.200"
     machine.vm.provision "ansible" do |ansible|
       ansible.limit = "lb"
