@@ -6,3 +6,13 @@
     working_dir: /vagrant/slim/
   # Task only needs to run on a single app server - app server share same mount
   run_once: true
+
+- name: Generate NGINX vhost
+  template:
+    src: site.conf.j2
+    dest: /etc/nginx/conf.d/http/site.conf
+
+- name: Reload NGINX
+  systemd:
+    name: nginx
+    state: reloaded
