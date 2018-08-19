@@ -9,7 +9,7 @@ require "ipaddr"
 # you're doing.
 Vagrant.configure("2") do |config|
   # Define Variables
-  N = 1 # Number of application servers
+  N = 2 # Number of application servers
   ip_lb = "192.168.77.200"
   haproxy_web_port = 8080
   haproxy_status_port = 8081
