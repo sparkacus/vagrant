@@ -20,3 +20,8 @@
     fail_on_not_found: yes
   with_list: "{{groups.apps}}"
   when: inventory_hostname == "lb"
+
+- name: Ensure enpoint is responsive - Fail task if not
+  include_tasks: tests.yml
+  with_sequence: count="{{groups.apps|length}}"
+  when: inventory_hostname == "lb"
