@@ -74,6 +74,9 @@ Vagrant.configure("2") do |config|
       ansible.become = true
       ansible.playbook = "lb.yml"
       ansible.tags = "haproxy_configure"
+      ansible.extra_vars = {
+        haproxy_disable_stats: true
+      }
       ansible.galaxy_role_file = "requirements-lb.yml"
       ansible.galaxy_roles_path = "roles_vendor"
     end
