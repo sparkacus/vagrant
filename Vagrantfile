@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
           ansible.become = true
           ansible.playbook = "app.yml"
           ansible.extra_vars = {
-            server_name: "localhost #{server_name}"
+            server_name: "#{server_name} localhost"
           }
           ansible.galaxy_role_file = "requirements-app.yml"
           ansible.galaxy_roles_path = "roles_vendor"
