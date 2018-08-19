@@ -11,6 +11,8 @@ Vagrant.configure("2") do |config|
   # Define Variables
   N = 2 # Number of application servers
   ip_lb = "192.168.77.200"
+  # Leave server_name blank if only localhost is required.
+  server_name = ""
   haproxy_web_port = 8080
   haproxy_status_port = 8081
   # End
@@ -40,6 +42,9 @@ Vagrant.configure("2") do |config|
           ansible.limit = "apps"
           ansible.become = true
           ansible.playbook = "app.yml"
+          ansible.extra_vars = {
+            server_name: "localhost #{server_name}"
+          }
           ansible.galaxy_role_file = "requirements-app.yml"
           ansible.galaxy_roles_path = "roles_vendor"
           ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
