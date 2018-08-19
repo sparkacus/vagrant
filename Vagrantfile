@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   server_name = ""
   haproxy_web_port = 8080
   haproxy_status_port = 8081
+  haproxy_response_string = "Hello World!"
   # End
 
   # Logic to support incrementing IP
